@@ -30,7 +30,7 @@ function createOverlay() {
 
     // Add icon
     const icon = document.createElement('img');
-    icon.src = 'https://i.ibb.co/SQxpvZ8/helium.png'; // Updated icon URL
+    icon.src = 'https://i.ibb.co/khfZdnH/icon128.png'; // Updated icon URL
     icon.style.width = '32px'; // Adjust size as needed
     icon.style.height = '32px'; // Adjust size as needed
     icon.style.marginRight = '10px'; // Space between icon and menu
@@ -38,7 +38,7 @@ function createOverlay() {
 
     // Add preset buttons
     const presets = [
-        { name: 'Mega Launcher', url: 'https://weblabsaus.github.io/Mega-Launcher/' },
+        { name: 'Mega Launcher', url: 'https://weblabsaus.github.io/Mega-Launcher' },
         { name: 'Instagram', url: 'https://instagram.com' },
         { name: 'Sandboxels', url: 'https://weblabsaus.github.io/sandboxels/' },
         { name: 'Memo', url: 'https://www.memonotepad.com/' },
@@ -113,6 +113,7 @@ function loadWebsite() {
         selectedElement.innerHTML = ''; // Clear the selected element
         selectedElement.appendChild(iframe); // Append the iframe
         removeOverlay();
+        disableElementSelection(); // Disable further selection
     }
 }
 
@@ -125,7 +126,6 @@ function removeOverlay() {
 }
 
 function selectElement(event) {
-    // Allow only the body to be selected
     if (event.target.tagName === 'BUTTON' || event.target.tagName === 'INPUT' || event.target.tagName === 'IMG') return;
 
     selectedElement = event.target;
@@ -154,6 +154,11 @@ function removeHighlight() {
         document.body.removeChild(highlightBox);
         highlightBox = null;
     }
+}
+
+function disableElementSelection() {
+    document.removeEventListener('click', selectElement); // Remove the click listener
+    document.removeEventListener('mousemove', highlightElement); // Remove the highlight listener
 }
 
 // Export a function to activate the overlay
